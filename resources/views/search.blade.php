@@ -26,7 +26,6 @@
             <div class="form-group">
               <select name="province" class="form-control">
                 <option value=34 selected>อุบลราชธานี</option>
-                <option value=35>ยโสธร</option>
               </select>
           </div>
           <input type= "submit" class="btn btn-primary" value= "ค้นหา">

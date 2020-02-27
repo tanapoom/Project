@@ -18,6 +18,8 @@ Route::get('/detail/{attractions_id}','detail@showdetail');
 Route::get('/add','addplace@add')->name('addplace.add');
 Route::get('/delAllSelect','addplace@delAllSelect');
 
+Route::get('/result','ResultController@getresult')->name('ResultController.getresult');
+
 
 
 Route::get('/test','addplace@test');

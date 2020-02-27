@@ -32,6 +32,7 @@ class addplace extends Controller
       }
       //$request->session()->flush();
       //return redirect()->route('getplace.getdata');
+      echo "<script>alert('success')</script>";
       return Redirect::back();
     }
 
@@ -51,7 +52,7 @@ class addplace extends Controller
 
     function delAllSelect(Request $request){
       $request->session()->flush();
-      return Redirect::back();
+      return view('search');
     }
 
 }

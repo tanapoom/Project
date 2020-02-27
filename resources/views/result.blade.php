@@ -32,46 +32,59 @@
         <a class="btn btn-danger" href="/delAllSelect">ลบที่เลือกทั้งหมด</a>
       </form>
     </nav>
-    @if(Session::has('attraction_id'))
         <div id="map"></div>
-        <h5 class="card-title">สถานที่ที่เลือก</h5>
-        @foreach($places as $place)
-            <p>{{$place["attractions_name"]}}</p>
+        <h5 class="card-title">ลำลับการเดินทาง</h5>
+        @foreach($dataresults as $data)
+            <p>{{$data["attractions_name"]}}</p>
         @endforeach
-        <form action="{{ route('ResultController.getresult') }}" method="get">
-            <div class="form-group">
-              <input type= "hidden" name= "lat" id= "lat" >
-              <input type= "hidden" name= "lng" id= "lng" >
-              <input type= "submit" class="btn btn-primary" value= "ค้นหาเส้นทาง">
-            </div>
-        </form>
-        <button class="btn btn-primary" onclick="set()">ตำแหน่งปัจจุบัน</button>
         <script>
          function initMap() {
+           var directionsService = new google.maps.DirectionsService();
+           var directionsRenderer = new google.maps.DirectionsRenderer();
            var map = new google.maps.Map(document.getElementById('map'), {
              center: {lat: 13.684164, lng: 100.709522},
              zoom: 6
            });
-         }
-         var lat = document.getElementById("lat");
-         var lng = document.getElementById("lng");
-         function set(){
+            directionsRenderer.setMap(map);
             navigator.geolocation.getCurrentPosition(function(position) {
-              lng.value = position.coords.longitude;
-              lat.value = position.coords.latitude;
+              var pos = {lat: position.coords.latitude,lng: position.coords.longitude};
+              map.setCenter(pos);
+              map.setZoom(15);
+              calculateAndDisplayRoute(directionsService, directionsRenderer,pos);
             });
          }
+
+         function calculateAndDisplayRoute(directionsService, directionsRenderer,pos) {
+            var waypts = [];
+            <?php $i=0; ?>
+            for (var i = 0; i <= <?php echo count($dataresults)-2; ?>; i++) {
+                 waypts.push({
+                   location: {lat: <?php echo $dataresults[$i]["Latitude"]; ?>,lng: <?php echo $dataresults[$i]["longitude"]; ?>},
+                   stopover: true
+                 });
+                 <?php echo "console.log(".$i.");";$i++; ?>
+             }
+            var posdes = {lat: <?php echo $dataresults[count($dataresults)-1]["Latitude"]; ?>,lng: <?php echo $dataresults[count($dataresults)-1]["longitude"]; ?>};
+            directionsService.route(
+                {
+                  origin: pos,
+                  destination: posdes,
+                  waypoints: waypts,
+                  travelMode: 'DRIVING'
+                },
+                function(response, status) {
+                  if (status === 'OK') {
+                    directionsRenderer.setDirections(response);
+                  } else {
+                    window.alert('Directions request failed due to ' + status);
+                  }
+                });
+
+          }
         </script>
         <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQLj-_PEe0qXFXtqhs_EdE-ZmC5zoReMs&callback=initMap">
         </script>
-        @if(Session::has('result'))
-          @foreach($places as $data)
-              <p>{{$data["attractions_name"]}}</p>
-          @endforeach
-        @endif
-    @else
-    <p>กรุณาเลือกสถานที่</p>
-    @endif
+
   </body>
 </html>
