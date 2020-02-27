@@ -22,7 +22,7 @@
     <nav class="navbar navbar-light bg-light">
       <a href="/" class="navbar-brand">Travel</a>
       <form class="form-inline">
-        <a class="btn btn-primary" href="/direction">ดูเส้นทาง</a>
+        <a class="btn btn-primary" href="/selectview">สถานที่ที่เลือก</a>
       </form>
     </nav>
     <?php //$get_results = json_decode($data, true); ?>

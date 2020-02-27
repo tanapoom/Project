@@ -27,15 +27,13 @@
     <nav class="navbar navbar-light bg-light">
       <a href="/" class="navbar-brand">Travel</a>
       <form class="form-inline">
-        <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <a class="btn btn-primary" href="/search">ค้นหา</a>-->
         <a class="btn btn-danger" href="/delAllSelect">ลบที่เลือกทั้งหมด</a>
       </form>
     </nav>
         <div id="map"></div>
-        <h5 class="card-title">ลำลับการเดินทาง</h5>
+        <h5>ลำลับการเดินทาง</h5>
         @foreach($dataresults as $data)
-            <p>{{$data["attractions_name"]}}</p>
+          <p>{{$data["attractions_name"]}}</p>
         @endforeach
         <script>
          function initMap() {
@@ -50,20 +48,20 @@
               var pos = {lat: position.coords.latitude,lng: position.coords.longitude};
               map.setCenter(pos);
               map.setZoom(15);
-              calculateAndDisplayRoute(directionsService, directionsRenderer,pos);
+
+              DisplayRoute(directionsService, directionsRenderer,pos);
             });
          }
-
-         function calculateAndDisplayRoute(directionsService, directionsRenderer,pos) {
+         function DisplayRoute(directionsService, directionsRenderer,pos) {
             var waypts = [];
-            <?php $i=0; ?>
-            for (var i = 0; i <= <?php echo count($dataresults)-2; ?>; i++) {
-                 waypts.push({
-                   location: {lat: <?php echo $dataresults[$i]["Latitude"]; ?>,lng: <?php echo $dataresults[$i]["longitude"]; ?>},
-                   stopover: true
-                 });
-                 <?php echo "console.log(".$i.");";$i++; ?>
-             }
+            <?php
+              for ($i=0; $i <= count($dataresults)-2; $i++) {
+                echo "waypts.push({";
+                echo "location: {lat:".$dataresults[$i]["Latitude"].",lng:".$dataresults[$i]["longitude"]."},";
+                echo "stopover: true";
+                echo "});";
+              }
+            ?>
             var posdes = {lat: <?php echo $dataresults[count($dataresults)-1]["Latitude"]; ?>,lng: <?php echo $dataresults[count($dataresults)-1]["longitude"]; ?>};
             directionsService.route(
                 {
@@ -83,7 +81,7 @@
           }
         </script>
         <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQLj-_PEe0qXFXtqhs_EdE-ZmC5zoReMs&callback=initMap">
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQLj-_PEe0qXFXtqhs_EdE-ZmC5zoReMs&callback=initMap">
         </script>
 
   </body>

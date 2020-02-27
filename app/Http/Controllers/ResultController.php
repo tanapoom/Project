@@ -18,8 +18,7 @@ class ResultController extends Controller
     $lng=$request->only('lng');
     $url= $this->geturl(data_get($lat,'lat'),data_get($lng,'lng'),$getselects);
     $getselects = $this->getdistance($url,$getselects);
-
-    do {
+    while (count($getselects)>1) {
       $place = Attraction::where('attractions_id',end($this->results) )->get()->toArray();
       foreach ($place as $p) {
         $lat=$p["Latitude"];
@@ -27,12 +26,14 @@ class ResultController extends Controller
       }
       $url=$this->geturl($lat,$lng,$getselects);
       $getselects = $this->getdistance($url,$getselects);
-      $c=count($getselects);
-    } while ($c!=1);
 
-    foreach ($getselects as $getselect) {
-      array_push($this->results,$getselect["id"]);
     }
+    if(count($getselects)==1){
+      foreach ($getselects as $getselect) {
+        array_push($this->results,$getselect["id"]);
+      }
+    }
+    //dd($this->results);
     Session::put('result', 'have');
     $dataresults=array();
     foreach($this->results as $result){
