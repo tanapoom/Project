@@ -31,10 +31,16 @@
       </form>
     </nav>
         <div id="map"></div>
-        <h5>ลำลับการเดินทาง</h5>
-        @foreach($dataresults as $data)
-          <p>{{$data["attractions_name"]}}</p>
-        @endforeach
+        <div class="card">
+          <div class="card-header">
+            ลำดับการเดินทาง
+          </div>
+          <ul class="list-group list-group-flush">
+            @foreach($dataresults as $data)
+              <li class="list-group-item">{{$data["attractions_name"]}}</li>
+            @endforeach
+          </ul>
+        </div>
         <script>
          function initMap() {
            var directionsService = new google.maps.DirectionsService();

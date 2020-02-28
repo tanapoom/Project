@@ -9,8 +9,7 @@ use App\Attraction;
 
 class addplace extends Controller
 {
-    public $selecteds = array();
-
+    public $amount=0;
     function add(Request $request){
       $id=$request->only('id');
       $addPlace = Session::has('attraction_id') ? Session::get('attraction_id') : null;
@@ -32,31 +31,44 @@ class addplace extends Controller
         }
       }
       //$request->session()->flush();
-      //return redirect()->route('getplace.getdata');
+      //return redirect()->route('getplace.getdata')
       return Redirect::back();
     }
 
     function showselect(){
       if (Session::has('attraction_id')) {
+        $selecteds = array();
         $getselects = Session::get('attraction_id');
         foreach($getselects as $getselect){
           $place = Attraction::where('attractions_id',$getselect )->get()->toArray();
-          $this->selecteds=array_merge($this->selecteds,$place);
+          $selecteds=array_merge($selecteds,$place);
         }
-        return view('selectview')->with('selecteds',$this->selecteds);
+        return view('selectview')->with('selecteds',$selecteds);
       }else {
         return view('selectview');
       }
     }
 
-    function del($id){
-      dd($this->selecteds);
+    function del(Request $request){
+      $id=$request->only('id');
+      $getselects = Session::get('attraction_id');
+      $newgetselects=array();
+      foreach($getselects as $getselect){
+        if($getselect!=$id){
+          array_push($newgetselects,$getselect);
+          $request->session()->put('attraction_id',$newgetselects);
+        }else {
+          $request->session()->forget('attraction_id');
+        }
+      }
+      return Redirect::to('selectview');
+      //return redirect('del','/search');
+      //return view('selectview')->with('selecteds',$selecteds);
     }
 
     function delAllSelect(Request $request){
-      $this->selecteds=array();
       $request->session()->flush();
-      return view('search');
+      return Redirect::to('/');
     }
 
 

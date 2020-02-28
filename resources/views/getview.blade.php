@@ -38,16 +38,20 @@
                   <form action="{{ route('addplace.add') }}" method="get">
                     <!--{{csrf_field()}}-->
                     <input type= "hidden" name= "id" value="{{$place["attractions_id"]}}">
-                    <input type= "submit" class="btn btn-primary" value= "เลือก">
+                    <input onclick="success()" type= "submit" class="btn btn-primary" value= "เลือก">
                   </form>
                 </div>
               </div>
             </div>
           @endforeach
         </div>
-        @else
-          <p>ไม่มีข้อมูล</p>
-        @endif
-
+        <script type="text/javascript">
+        function success(){
+          alert("success");
+        }
+        </script>
+      @else
+        <p>ไม่มีข้อมูล</p>
+      @endif
   </body>
 </html>

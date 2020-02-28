@@ -17,8 +17,8 @@ Route::get('/selectview','addplace@showselect');
 Route::get('/detail/{attractions_id}','detail@showdetail');
 Route::get('/add','addplace@add')->name('addplace.add');
 Route::get('/delAllSelect','addplace@delAllSelect');
-Route::get('/del/{id}','addplace@del');
-Route::get('/result','ResultController@getresult')->name('ResultController.getresult');
+Route::get('/del','addplace@del')->name('addplace.del');
+Route::post('/result','ResultController@getresult')->name('ResultController.getresult');
 
 
 

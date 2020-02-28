@@ -40,7 +40,8 @@
     </nav>
     @if(Session::has('attraction_id'))
         <div id="div1">
-          <form action="{{ route('ResultController.getresult') }}" method="get">
+          <form action="{{ route('ResultController.getresult') }}" method="post">
+            {{csrf_field()}}
             <div class="form-group">
               <input type= "hidden" name= "lat" id= "lat" >
               <input type= "hidden" name= "lng" id= "lng" >
@@ -56,7 +57,11 @@
               <h5 class="card-title">{{$selected["attractions_name"]}}</h5>
             </div>
             <div class="card-body">
-              <a href="del/{{$selected['attractions_id']}}" class="card-link">ลบ</a>
+              <form action="{{ route('addplace.del') }}" method="get">
+                <!--{{csrf_field()}}-->
+                <input type= "hidden" name= "id" value="{{$selected["attractions_id"]}}">
+                <input type= "submit" class="btn btn-danger" value= "ลบ">
+              </form>
             </div>
           </div>
           @endforeach
