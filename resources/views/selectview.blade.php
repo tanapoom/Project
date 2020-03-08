@@ -11,10 +11,11 @@
 
     <!--bootstrap-->
     <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
+      body {
+        background-color: #999999;
+      }
+      a,form{
+        margin:5px;
       }
       #div1 {
         margin: 10px;
@@ -27,31 +28,29 @@
       .card{
         margin:25px 25px 25px 30px;
       }
+      img{
+        width:100%;
+        height:300px;
+      }
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-light bg-light">
-      <a href="/" class="navbar-brand">Travel</a>
-      <form class="form-inline">
-        <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <a class="btn btn-primary" href="/search">ค้นหา</a>-->
-        <a class="btn btn-danger" href="/delAllSelect">ลบที่เลือกทั้งหมด</a>
-      </form>
-    </nav>
     @if(Session::has('attraction_id'))
-        <div id="div1">
-          <form action="{{ route('ResultController.getresult') }}" method="post">
-            {{csrf_field()}}
-            <div class="form-group">
-              <input type= "hidden" name= "lat" id= "lat" >
-              <input type= "hidden" name= "lng" id= "lng" >
-              <input type= "submit" class="btn btn-primary" value= "ค้นหาเส้นทาง">
-            </div>
-          </form>
-        </div>
+    <nav class="navbar navbar-dark bg-dark">
+      <a href="/" class="navbar-brand">Travel</a>
+      <div class="form-inline">
+        <a class="btn btn-danger" href="/delAllSelect">ลบที่เลือกทั้งหมด</a>
+        <form action="{{ route('ResultController.getresult') }}" method="post">
+          {{csrf_field()}}
+          <input type= "hidden" name= "lat" id= "lat" >
+          <input type= "hidden" name= "lng" id= "lng" >
+          <input type= "submit" class="btn btn-primary" value= "ค้นหาเส้นทาง">
+        </form>
+      </div>
+    </nav>
         <div class="row">
           @foreach($selecteds as $selected)
-          <div class="card" style="width: 18rem;">
+          <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
             <img class="card-img-top" src="{{$selected['image_url']}}" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">{{$selected["attractions_name"]}}</h5>
@@ -82,6 +81,12 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQLj-_PEe0qXFXtqhs_EdE-ZmC5zoReMs&callback=initMap">
         </script>
     @else
+    <nav class="navbar navbar-dark bg-dark">
+      <a href="/" class="navbar-brand">Travel</a>
+      <div class="form-inline">
+        <a class="btn btn-danger" href="/delAllSelect">ลบที่เลือกทั้งหมด</a>
+      </div>
+    </nav>
     <p>กรุณาเลือกสถานที่</p>
     @endif
   </body>

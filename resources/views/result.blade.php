@@ -15,16 +15,21 @@
         height: 100%;
         margin: 0;
         padding: 0;
+        background-color: #999999;
+      }
+      a{
+        margin:5px;
       }
       #map {
         height: 100%;
         float: left;
         width: 70%;
       }
+
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-dark bg-dark">
       <a href="/" class="navbar-brand">Travel</a>
       <form class="form-inline">
         <a class="btn btn-danger" href="/delAllSelect">ลบที่เลือกทั้งหมด</a>
@@ -36,6 +41,7 @@
             ลำดับการเดินทาง
           </div>
           <ul class="list-group list-group-flush">
+            <li class="list-group-item">ตำแหน่งปัจจุบัน</li>
             @foreach($dataresults as $data)
               <li class="list-group-item">{{$data["attractions_name"]}}</li>
             @endforeach

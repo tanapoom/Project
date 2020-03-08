@@ -57,9 +57,10 @@ class addplace extends Controller
         if($getselect!=$id){
           array_push($newgetselects,$getselect);
           $request->session()->put('attraction_id',$newgetselects);
-        }else {
-          $request->session()->forget('attraction_id');
         }
+      }
+      if ($newgetselects==null) {
+        $request->session()->forget('attraction_id');
       }
       return Redirect::to('selectview');
       //return redirect('del','/search');

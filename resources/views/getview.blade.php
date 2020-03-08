@@ -15,26 +15,32 @@
     a,form{
       margin:5px;
     }
+    img{
+      width:100%;
+      height:300px;
+    }
+    body {
+      background-color: #999999;
+    }
     </style>
     <title></title>
   </head>
   <body>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-dark bg-dark">
       <a href="/" class="navbar-brand">Travel</a>
       <form class="form-inline">
         <a class="btn btn-primary" href="/selectview">สถานที่ที่เลือก</a>
       </form>
     </nav>
-    <?php //$get_results = json_decode($data, true); ?>
       @if($places!=null)
         <div class="row">
           @foreach($places as $place)
-            <div class="card" style="width: 18rem;">
+            <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
               <img class="card-img-top" src="{{$place['image_url']}}" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">{{$place["attractions_name"]}}</h5>
                 <div class="row">
-                  <a href="/detail/{{$place["attractions_id"]}}" class="btn btn-primary">รายละเอียด</a>
+                  <a href="/detail_/{{$place["attractions_id"]}}" class="btn btn-primary">รายละเอียด</a>
                   <form action="{{ route('addplace.add') }}" method="get">
                     <!--{{csrf_field()}}-->
                     <input type= "hidden" name= "id" value="{{$place["attractions_id"]}}">

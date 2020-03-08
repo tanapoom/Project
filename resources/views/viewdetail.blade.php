@@ -29,18 +29,21 @@
        h3 {
          margin: 10px 10px 1px 100px;
         }
-
+        body {
+          background-color: #999999;
+        }
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-light bg-light">
+    @foreach($details as $detail)
+    <nav class="navbar navbar-dark bg-dark">
       <a href="/" class="navbar-brand">Travel</a>
-      <form class="form-inline">
-        <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <a class="btn btn-primary" href="/search">ค้นหา</a>-->
+      <form action="{{ route('addplace.add') }}" method="get">
+        <!--{{csrf_field()}}-->
+        <input type= "hidden" name= "id" value="{{$detail["attractions_id"]}}">
+        <input onclick="success()" type= "submit" class="btn btn-primary" value= "เลือก">
       </form>
     </nav>
-    @foreach($details as $detail)
     <h3 class="text-left">{{$detail['attractions_name']}}</h1>
     <div class="row">
         <!--The div element for the map -->
@@ -66,8 +69,13 @@
           <h3>รายละเอียด</h3>
           <p>{{$detail["description"]}}</p>
         </div>
-    @endforeach
     </div>
+    @endforeach
+    <script type="text/javascript">
+    function success(){
+      alert("success");
+    }
+    </script>
     <div class="card" id="cardlocation">
       <div id="fb-root"></div>
       <script async defer crossorigin="anonymous" src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v6.0"></script>

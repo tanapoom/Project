@@ -16,7 +16,11 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
-
+    body {
+      background-image: url("https://cdn.pixabay.com/photo/2018/08/21/23/29/fog-3622519_960_720.jpg");
+      background-repeat:no-repeat;
+      background-size:cover;
+    }
     </style>
   </head>
   <body>

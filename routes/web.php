@@ -14,7 +14,7 @@
 Route::view('/','search');
 Route::get('/search','getplace@getdata')->name('getplace.getdata');
 Route::get('/selectview','addplace@showselect');
-Route::get('/detail/{attractions_id}','detail@showdetail');
+Route::get('/detail_/{attractions_id}','detail@showdetail');
 Route::get('/add','addplace@add')->name('addplace.add');
 Route::get('/delAllSelect','addplace@delAllSelect');
 Route::get('/del','addplace@del')->name('addplace.del');
@@ -23,5 +23,5 @@ Route::post('/result','ResultController@getresult')->name('ResultController.getr
 
 
 
-Route::get('/test','addplace@test');
+Route::view('/test','test');
 Route::get('/show','addplace@show');
