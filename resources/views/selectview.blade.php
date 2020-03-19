@@ -68,17 +68,15 @@
         <script>
         var lat = document.getElementById("lat");
         var lng = document.getElementById("lng");
-         function initMap() {
-           if (navigator.geolocation){
+         function getCurrent() {
              navigator.geolocation.getCurrentPosition(function(position) {
-               lng.value = position.coords.longitude;
                lat.value = position.coords.latitude;
+               lng.value = position.coords.longitude;
              });
-           }
          }
         </script>
         <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQLj-_PEe0qXFXtqhs_EdE-ZmC5zoReMs&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQLj-_PEe0qXFXtqhs_EdE-ZmC5zoReMs&callback=getCurrent">
         </script>
     @else
     <nav class="navbar navbar-dark bg-dark">

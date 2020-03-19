@@ -41,9 +41,14 @@
             ลำดับการเดินทาง
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">ตำแหน่งปัจจุบัน</li>
+            <?php
+              $p=array('B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K');
+              $i=0;
+             ?>
+            <li class="list-group-item">A ตำแหน่งปัจจุบัน</li>
             @foreach($dataresults as $data)
-              <li class="list-group-item">{{$data["attractions_name"]}}</li>
+              <li class="list-group-item">{{$p[$i]}} {{$data["attractions_name"]}}</li>
+              <?php $i++; ?>
             @endforeach
           </ul>
         </div>
