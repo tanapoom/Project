@@ -20,8 +20,22 @@ Route::get('/delAllSelect','addplace@delAllSelect');
 Route::get('/del','addplace@del')->name('addplace.del');
 Route::post('/result','ResultController@getresult')->name('ResultController.getresult');
 
+//login
+Route::get('/adminlogin','loginController@checkLogin')->name('loginController.checkLogin');
+Route::post('/login','loginController@login')->name('loginController.login');
+Route::view('/admin','admin');
+Route::get('/admin/logout','loginController@logout');
 
-
+/**admin */
+Route::view('/admin/insert','insert');
+Route::post('/admin/insertAttraction','adminController@insertAttraction')->name('adminController.insertAttraction');
+Route::post('/admin/insertProvince','adminController@insertProvince')->name('adminController.insertProvince');
+Route::post('/admin/deleteProvince','adminController@deleteProvince')->name('adminController.deleteProvince');
+Route::post('/admin/deleteAttraction','adminController@deleteAttraction')->name('adminController.deleteAttraction');
+Route::view('admin/delete','delete');
+Route::get('/admin/search','adminController@search')->name('adminController.search');
+Route::get('/admin/edit','adminController@edit')->name('adminController.edit');
+Route::post('/admin/update','adminController@update')->name('adminController.update');
 
 Route::view('/test','test');
 Route::get('/show','addplace@show');

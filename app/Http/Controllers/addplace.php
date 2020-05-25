@@ -11,7 +11,7 @@ class addplace extends Controller
 {
     public $amount=0;
     function add(Request $request){
-      $id=$request->only('id');
+      $id=$request->input('id');
       $addPlace = Session::has('attraction_id') ? Session::get('attraction_id') : null;
       if ($addPlace==null) {
         $addPlace= array();
@@ -50,7 +50,7 @@ class addplace extends Controller
     }
 
     function del(Request $request){
-      $id=$request->only('id');
+      $id=$request->input('id');
       $getselects = Session::get('attraction_id');
       $newgetselects=array();
       foreach($getselects as $getselect){
@@ -68,7 +68,7 @@ class addplace extends Controller
     }
 
     function delAllSelect(Request $request){
-      $request->session()->flush();
+      $request->session()->forget('attraction_id');
       return Redirect::to('/');
     }
 

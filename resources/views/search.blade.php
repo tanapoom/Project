@@ -16,42 +16,37 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
+    a{
+      position: fixed;
+      left: 94%;
+      margin:5px;
+    }
     body {
       background-color: #999999;
     }
     </style>
   </head>
   <body>
+    <?php
+      use App\Province;
+      $provinces =  Province::all();
+     ?>
     <center>
     <div class="container">
         <form action="{{ route('getplace.getdata') }}" method="get">
             <div class="form-group">
               <select name="province" class="form-control">
-                <option value=34 selected>อุบลราชธานี</option>
+                @foreach ($provinces as $province)
+                <option value={{$province["provinces_id"]}} >{{$province["provinces_name"]}}</option>
+
+                @endforeach
               </select>
           </div>
           <input type= "submit" class="btn btn-primary" value= "ค้นหา">
         </form>
     </div>
     </center>
+    <a class="btn btn-secondary" href="/adminlogin">admin</a>
   </body>
-  <!--
-  <script type="text/javascript">
-    function g(){
-      let xhr = new XMLHttpRequest();
-      xhr.open("GET", "https://tatapi.tourismthailand.org/tatapi/v5/places/search?categorycodes=RESTAURANT" , true);
-      xhr.setRequestHeader('Authorization', 'G)LjeSbjx2e61rtD1gHe4uTRpVrdyF0qi)5rv9PU7v4mv(hz9gR41LRL)lZYlD1cD6hAGRSPT49ZzrMQCWvZjtm=====2');
-      xhr.send();
-      xhr.onreadystatechange = processRequest;
-      function processRequest(e) {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          console.log(xhr.responseText);
-          console.log("*********************************");
-          let JSObj = JSON.parse(xhr.responseText);
-          console.log(JSObj);
-        }
-      }
-    }
-  </script>
-  -->
+
 </html>

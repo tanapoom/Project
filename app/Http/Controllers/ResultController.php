@@ -14,10 +14,11 @@ class ResultController extends Controller
   public $results = array();
   function getresult(Request $request){
     $getselects = Session::get('attraction_id');
-    $lat=$request->only('lat');
-    $lng=$request->only('lng');
-    $url= $this->geturl(data_get($lat,'lat'),data_get($lng,'lng'),$getselects);
+    $lat=$request->input('lat');
+    $lng=$request->input('lng');
+    $url= $this->geturl($lat,$lng,$getselects);
     $getselects = $this->getdistance($url,$getselects);
+
     while (count($getselects)>1) {
       $place = Attraction::where('attractions_id',end($this->results) )->get()->toArray();
       foreach ($place as $p) {
@@ -30,7 +31,8 @@ class ResultController extends Controller
     }
     if(count($getselects)==1){
       foreach ($getselects as $getselect) {
-        array_push($this->results,$getselect["id"]);
+        //dd($getselects,$getselect);
+        array_push($this->results,$getselect);
       }
     }
     //dd($this->results);
@@ -42,14 +44,13 @@ class ResultController extends Controller
     }
     return view('result')->with('dataresults',$dataresults);
 
-
   }
 
   public function geturl($lat,$lng,$getselects){
     $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=".$lat.",".$lng."&destinations=";
     $i=1;
     foreach ($getselects as $getselect) {
-      $place = Attraction::where('attractions_id',$getselect["id"] )->get()->toArray();
+      $place = Attraction::where('attractions_id',$getselect )->get()->toArray();
       foreach ($place as $p) {
         $deslat=$p["Latitude"];
         $deslng=$p["longitude"];
@@ -93,7 +94,7 @@ class ResultController extends Controller
     foreach ($getselects as $getselect) {
       if($i==$index){
         $index=array_search($getselect, $getselects);
-        array_push($this->results,$getselects[$index]["id"]);
+        array_push($this->results,$getselects[$index]);
         unset($getselects[$index]);
       }
       $i++;

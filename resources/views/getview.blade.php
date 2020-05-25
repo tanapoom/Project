@@ -36,7 +36,10 @@
         <div class="row">
           @foreach($places as $place)
             <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
-              <img class="card-img-top" src="{{$place['image_url']}}" alt="Card image cap">
+              <?php
+                $pic= explode("|",$place['image_url']);
+               ?>
+              <img class="card-img-top" src="../upload/{{$pic[0]}}" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">{{$place["attractions_name"]}}</h5>
                 <div class="row">

@@ -57,7 +57,6 @@
             </div>
             <div class="card-body">
               <form action="{{ route('addplace.del') }}" method="get">
-                <!--{{csrf_field()}}-->
                 <input type= "hidden" name= "id" value="{{$selected["attractions_id"]}}">
                 <input type= "submit" class="btn btn-danger" value= "ลบ">
               </form>

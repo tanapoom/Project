@@ -32,6 +32,10 @@
         body {
           background-color: #999999;
         }
+        img{
+          width:100%;
+          height:300px;
+        }
     </style>
   </head>
   <body>
@@ -44,22 +48,51 @@
         <input onclick="success()" type= "submit" class="btn btn-primary" value= "เลือก">
       </form>
     </nav>
+    <?php
+      $pics= explode("|",$detail['image_url']);
+     ?>
+     <center>
+       <div class="card">
+          <div class="card-body">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <?php
+                for ($i=0; $i < count($pics) ; $i++) {
+                  if ($i==0) {
+                    echo "<div class='carousel-item active'>";
+                    echo "<img class='d-block w-100' src='../upload/$pics[$i]' >";
+                    echo "</div>";
+                  }else {
+                    echo "<div class='carousel-item'>";
+                    echo "<img class='d-block w-100' src='../upload/$pics[$i]' >";
+                    echo "</div>";
+                  }
+                } ?>
+
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+        </div>
+     </center>
     <h3 class="text-left">{{$detail['attractions_name']}}</h1>
     <div class="row">
-        <!--The div element for the map -->
         <div id="map"></div>
         <script>
-        // Initialize and add the map
         function initMap() {
-          // The location of Uluru
           var uluru = {lat: {{$detail["Latitude"]}}, lng:{{$detail["longitude"]}} };
-          // The map, centered at Uluru
           var map = new google.maps.Map(
               document.getElementById('map'), {
                 zoom: 16,
                 center: uluru
               });
-          // The marker, positioned at Uluru
           var marker = new google.maps.Marker({position: uluru, map: map});
         }
         </script>
